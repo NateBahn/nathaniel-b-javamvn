@@ -7,7 +7,9 @@ import net.yorksolutions.javamvn.BinaryTree;
 
 
 import javax.naming.BinaryRefAddr;
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.function.Consumer;
 
 public class BinaryTreeTest {
@@ -18,6 +20,8 @@ public class BinaryTreeTest {
         ArrayList<Integer> myList = new ArrayList<Integer>();
         private int treeSize = 0;
 
+
+        //Tree methods
         public void add(int value) {
             tree.add(value);
             myList.add(value);
@@ -31,10 +35,12 @@ public class BinaryTreeTest {
 //            testContents();
 //        }
 
-//        public void inOrder(Ref root, Consumer<T> function) {
-//            tree.inOrder(root, function);
-//        }
+        public void inOrder(Consumer<Integer> function) {
+            tree.inOrder(function);
+        }
 
+
+        //Wrapper Methods
         public int getTreeSize() {
             return treeSize;
         }
@@ -75,6 +81,37 @@ public class BinaryTreeTest {
 
     @org.junit.jupiter.api.Test
     void inOrder() {
+        //Arrange
+        TreeWrapper tw = new TreeWrapper();
+        ArrayList<Integer> orderedList = new ArrayList<>();
+        for(int i = 1; i < 8; i++){
+            orderedList.add(i);
+        }
+
+        //make scrambled list to add elements out of order
+        Integer[] nonOrderedList = {7,3,4,2,1,6,5};
+        //Add scrambled elements to tree
+        for(Integer i : nonOrderedList){
+            tw.add(i);
+        }
+        ArrayList<Integer> toCompare = new ArrayList<>();
+
+        //Act
+        tw.inOrder((value) -> {
+            toCompare.add(value);
+        });
+
+        //Assert
+        assertEquals(toCompare, orderedList);
+
+
+
+
+
+
+
+
+
 
     }
 }
