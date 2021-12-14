@@ -28,17 +28,15 @@ public class BinaryTreeTest {
             ++treeSize;
         }
 
-//        public void delete(int value) {
-//            tree.delete(value);
-//            expected.remove(value);
-//            --treeSize;
-//            testContents();
-//        }
+            public void delete(int value) {
+                tree.delete(value);
+                myList.remove(Integer.valueOf(value));
+                --treeSize;
+        }
 
         public void inOrder(Consumer<Integer> function) {
             tree.inOrder(function);
         }
-
 
         //Wrapper Methods
         public int getTreeSize() {
@@ -50,13 +48,12 @@ public class BinaryTreeTest {
 
     @org.junit.jupiter.api.Test
     void makeObjectTest() {
+
         //Act
         TreeWrapper tw = new TreeWrapper();
         //Assert
         assertEquals(0, tw.treeSize);
     }
-
-
 
         @org.junit.jupiter.api.Test
         void add() {
@@ -75,9 +72,6 @@ public class BinaryTreeTest {
                 tw.add(isnull);
         });
         }
-
-
-
 
     @org.junit.jupiter.api.Test
     void inOrder() {
@@ -103,26 +97,32 @@ public class BinaryTreeTest {
 
         //Assert
         assertEquals(toCompare, orderedList);
+    }
 
 
+    @org.junit.jupiter.api.Test
+    void delete(){
+        //Arrange
+        TreeWrapper tw = new TreeWrapper();
+        tw.add(4);
+        tw.add(3);
+        tw.add(5);
+        //Act
+        tw.delete(4);
 
+        ArrayList<Integer> treeContents = new ArrayList<>();
+        tw.inOrder((value) -> {
+            treeContents.add(value);
+        });
 
-
-
-
-
+        //Assert
+        assertEquals(2, tw.treeSize);
+        assertFalse(treeContents.contains(4));
 
 
     }
+
+
 }
-//    @org.junit.jupiter.api.Test
-//    void remove(){
-//        BinaryTree tree = CreateTestTree();
-//        tree.delete(5);
-//
-//        tree.inOrder((value) -> {
-//           assertNotEquals(value, 5);
-//        });
-//
-//    }
-//}
+
+
